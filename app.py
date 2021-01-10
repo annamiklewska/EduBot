@@ -2,13 +2,15 @@
 This bot listens to port 5002 for incoming connections from Facebook. It takes
 in any messages that the bot receives and echos it back.
 """
+import os
+
 from flask import Flask, request
 from pymessenger.bot import Bot
 
 app = Flask(__name__)
 
-ACCESS_TOKEN = "EAAGPgq0vyAUBAGfdf0XIDpX5HrLXw0Pdu0MFXOxX50IQkO79o2OH06eLckviBJxih6cj4KLmvZABeanTX3P0l4rVxBvC25GFHn5R0ZBHoTj1QMt7LjLfSK51Ei1wcOYw9DZAS9jQuZA44eJejhqsQLZAwB0IC99c0aDlavL2EYRgWHvbmURMiZCIPFGuVb3xgZD"
-VERIFY_TOKEN = "456f4873rfre67g4fds5g54/t5432tfd564sgdfs8t9434t36t1g564g2329yrhgsiutryg348t693tntrh4574"
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 bot = Bot(ACCESS_TOKEN)
 
 
