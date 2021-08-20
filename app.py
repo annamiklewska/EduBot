@@ -31,7 +31,7 @@ def hello():
                     recipient_id = x['sender']['id']
                     if x['message'].get('text'):
                         message = x['message']['text']
-                        message = "test msg"
+                        message = "test msg!"
                         print(message)
                         print(bot.send_text_message(recipient_id, message))
                     if x['message'].get('attachments'):
