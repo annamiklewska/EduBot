@@ -1,59 +1,50 @@
+"""
+This bot listens to port 5002 for incoming connections from Facebook. It takes
+in any messages that the bot receives and echos it back.
+"""
+import os
+
 from flask import Flask, request
-import json
-import requests
+from pymessenger.bot import Bot
 
 app = Flask(__name__)
 
-# This needs to be filled with the Page Access Token that will be provided
-# by the Facebook App that will be created.
-PAT = ''
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
+bot = Bot(ACCESS_TOKEN)
 
-@app.route('/', methods=['GET'])
-def handle_verification():
-    print "Handling Verification."
-    if request.args.get('hub.verify_token', '') == 'my_voice_is_my_password_verify_me':
-        print "Verification successful!"
-        return request.args.get('hub.challenge', '')
-    else:
-        print "Verification failed!"
-        return 'Error, wrong validation token'
 
-@app.route('/', methods=['POST'])
-def handle_messages():
-    print "Handling Messages"
-    payload = request.get_data()
-    print payload
-    for sender, message in messaging_events(payload):
-        print "Incoming from %s: %s" % (sender, message)
-        send_message(PAT, sender, message)
-    return "ok"
-
-def messaging_events(payload):
-    """Generate tuples of (sender_id, message_text) from the
-    provided payload.
-    """
-    data = json.loads(payload)
-    messaging_events = data["entry"][0]["messaging"]
-    for event in messaging_events:
-        if "message" in event and "text" in event["message"]:
-            yield event["sender"]["id"], event["message"]["text"].encode('unicode_escape')
+@app.route("/", methods=['GET', 'POST'])
+def hello():
+    if request.method == 'GET':
+        if request.args.get("hub.verify_token") == VERIFY_TOKEN:
+            return request.args.get("hub.challenge")
         else:
-            yield event["sender"]["id"], "I can't echo this"
+            return 'Invalid verification token'
+
+    if request.method == 'POST':
+        output = request.data
+        print(output)
+        '''
+        for event in output['entry']:
+            messaging = event['messaging']
+            for x in messaging:
+                if x.get('message'):
+                    recipient_id = x['sender']['id']
+                    if x['message'].get('text'):
+                        message = x['message']['text']
+                        message = "test msg!"
+                        print(message)
+                        print(bot.send_text_message(recipient_id, message))
+                    if x['message'].get('attachments'):
+                        print("pass")
+
+                        #for att in x['message'].get('attachments'):
+                        #    bot.send_attachment_url(recipient_id, att['type'], att['payload']['url'])
+                else:
+                    pass'''
+        return "Success"
 
 
-def send_message(token, recipient, text):
-    """Send the message text to recipient with id recipient.
-    """
-
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages",
-        params={"access_token": token},
-        data=json.dumps({
-            "recipient": {"id": recipient},
-            "message": {"text": text.decode('unicode_escape')}
-        }),
-        headers={'Content-type': 'application/json'})
-    if r.status_code != requests.codes.ok:
-        print r.text
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
