@@ -6,6 +6,7 @@ import os
 
 from flask import Flask, request
 from pymessenger.bot import Bot
+import json
 
 app = Flask(__name__)
 
@@ -25,8 +26,9 @@ def hello():
     if request.method == 'POST':
         output = request.data
         print(output)
-        '''
-        for event in output['entry']:
+        json_output = json.loads(output)
+        
+        for event in json_output['entry']:
             messaging = event['messaging']
             for x in messaging:
                 if x.get('message'):
@@ -42,7 +44,7 @@ def hello():
                         #for att in x['message'].get('attachments'):
                         #    bot.send_attachment_url(recipient_id, att['type'], att['payload']['url'])
                 else:
-                    pass'''
+                    pass
         return "Success"
 
 
