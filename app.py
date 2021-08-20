@@ -24,6 +24,8 @@ def hello():
 
     if request.method == 'POST':
         output = request.get_json()
+        print(output)
+        '''
         for event in output['entry']:
             messaging = event['messaging']
             for x in messaging:
@@ -40,7 +42,7 @@ def hello():
                         #for att in x['message'].get('attachments'):
                         #    bot.send_attachment_url(recipient_id, att['type'], att['payload']['url'])
                 else:
-                    pass
+                    pass'''
         return "Success"
 
 
