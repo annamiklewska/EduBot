@@ -84,7 +84,7 @@ def reply_to(sentence, vocab, encoder, decoder, inv_vocab, pad_token, sos_token,
     words = sentence.split(" ")
     for word in words:
         try:
-        inps += vocab[word]
+            inps += vocab[word]
     except KeyError:
         print("Missing word: " + word)
     
