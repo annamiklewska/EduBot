@@ -182,23 +182,6 @@ def decode_response(test_input):
 #################
 
 class ChatBot:
-    negative_responses = ("no", "nope", "nah", "naw", "not a chance", "sorry")
-    exit_commands = ("quit", "pause", "exit", "goodbye", "bye", "later", "stop")
-
-    # Method to start the conversation
-    def start_chat(self):
-        user_response = input("Hi, I'm a chatbot trained on random dialogs. Would you like to chat with me?\n")
-
-        if user_response in self.negative_responses:
-            print("Ok, have a great day!")
-            return
-        self.chat(user_response)
-
-    # Method to handle the conversation
-    def chat(self, reply):
-        while not self.make_exit(reply):
-            reply = input(self.generate_response(reply) + "\n")
-
     # Method to convert user input into a matrix
     def string_to_matrix(self, user_input):
         tokens = re.findall(r"[\w']+|[^\s\w]", user_input)
@@ -218,17 +201,6 @@ class ChatBot:
         chatbot_response = chatbot_response.replace("<START>", '')
         chatbot_response = chatbot_response.replace("<END>", '')
         return chatbot_response
-
-    # Method to check for exit commands
-    def make_exit(self, reply):
-        for exit_command in self.exit_commands:
-            if exit_command in reply:
-                print("Ok, have a great day!")
-                return True
-        return False
-
-    def say_sth(self, msg):
-        return msg + "YO"
 
 
 chatbot = ChatBot()
@@ -263,7 +235,9 @@ def hello():
                     recipient_id = x['sender']['id']
                     if x['message'].get('text'):
                         message = x['message']['text']
+                        Print("User message: " + message)
                         message = chatbot.generate_response(message)
+                        print("Reply: " + message)
                         print(bot.send_text_message(recipient_id, message))
                     if x['message'].get('attachments'):
                         print("pass")
