@@ -257,8 +257,7 @@ def hello():
                     recipient_id = x['sender']['id']
                     if x['message'].get('text'):
                         message = x['message']['text']
-                        print(chatbot.say_sth(message))
-                        message = "test msg!"
+                        message = chatbot.generate_response(message)
                         print(bot.send_text_message(recipient_id, message))
                     if x['message'].get('attachments'):
                         print("pass")
