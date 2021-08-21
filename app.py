@@ -118,8 +118,8 @@ training_model.compile(optimizer='rmsprop', loss='categorical_crossentropy', met
 training_model.summary()
 #Training
 
-print()
-training_model.fit([encoder_input_data, decoder_input_data], decoder_target_data, batch_size = batch_size, epochs = epochs, validation_split = 0.2)
+#print()
+#training_model.fit([encoder_input_data, decoder_input_data], decoder_target_data, batch_size = batch_size, epochs = epochs, validation_split = 0.2)
 #training_model.save('training_model3.h5')
 
 
@@ -221,6 +221,10 @@ class ChatBot:
         return False
 
 
+    def say_sth(self, msg):
+        return msg + "YO"
+
+
 chatbot = ChatBot()
 
 
@@ -253,6 +257,7 @@ def hello():
                     recipient_id = x['sender']['id']
                     if x['message'].get('text'):
                         message = x['message']['text']
+                        print(chatbot.say_sth(message))
                         message = "test msg!"
                         print(bot.send_text_message(recipient_id, message))
                     if x['message'].get('attachments'):
