@@ -1,0 +1,6 @@
+human_text.txt
+robot_text.txt
+training_model3.h5 
+training_model_600_pkl.h5 
+training_model_tiny.h5 
+pickled_vars_tiny 
