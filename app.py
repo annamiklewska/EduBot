@@ -15,6 +15,7 @@ from tensorflow import keras
 from keras.layers import Input, LSTM, Dense
 from keras.models import Model
 from keras.models import load_model
+import pickle as pkl
 '''
 data_path = "human_text.txt"
 data_path2 = "robot_text.txt"
