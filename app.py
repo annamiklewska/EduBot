@@ -98,7 +98,7 @@ for line, (input_doc, target_doc) in enumerate(zip(input_docs, target_docs)):
 dimensionality = 256
 #The batch size and number of epochs
 batch_size = 10
-epochs = 600
+epochs = 20
 #Encoder
 encoder_inputs = Input(shape=(None, num_encoder_tokens))
 encoder_lstm = LSTM(dimensionality, return_state=True)
@@ -119,13 +119,13 @@ training_model.summary()
 #Training
 
 #print()
-#training_model.fit([encoder_input_data, decoder_input_data], decoder_target_data, batch_size = batch_size, epochs = epochs, validation_split = 0.2)
+training_model.fit([encoder_input_data, decoder_input_data], decoder_target_data, batch_size = batch_size, epochs = epochs, validation_split = 0.2)
 #training_model.save('training_model3.h5')
 
 
 ###############################################
 
-training_model = load_model('training_model3.h5')
+#training_model = load_model('training_model3.h5')
 encoder_inputs = training_model.input[0]
 encoder_outputs, state_h_enc, state_c_enc = training_model.layers[2].output
 encoder_states = [state_h_enc, state_c_enc]
@@ -220,7 +220,6 @@ class ChatBot:
                 return True
         return False
 
-
     def say_sth(self, msg):
         return msg + "YO"
 
@@ -267,6 +266,7 @@ def hello():
                 else:
                     pass
         return "Success"
+
 
 
 if __name__ == "__main__":
