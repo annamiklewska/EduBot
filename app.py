@@ -127,6 +127,8 @@ training_model.summary()
 
 ###############################################
 '''
+
+'''
 print("Getting pickled data")
 file_name = "pickled_vars_600_pkl"
 with open(file_name, 'rb') as pf:
@@ -148,7 +150,20 @@ decoder_outputs, state_hidden, state_cell = decoder_lstm(decoder_inputs, initial
 decoder_states = [state_hidden, state_cell]
 decoder_outputs = decoder_dense(decoder_outputs)
 decoder_model = Model([decoder_inputs] + decoder_states_inputs, [decoder_outputs] + decoder_states)
+'''
 
+print("Getting all pickled data")
+
+file_name = "pickled_vars_600_pkl"
+with open(file_name, 'rb') as pf:
+    encoder_inputs, decoder_inputs, num_decoder_tokens, target_features_dict, max_decoder_seq_length, max_encoder_seq_length, num_encoder_tokens, input_features_dict, decoder_lstm, decoder_dense, reverse_target_features_dict = pkl.load(pf)
+
+second_file_name = "final_pickle"
+with open(second_file_name, 'rb') as pf:
+    num_decoder_tokens, num_encoder_tokens, input_features_dict, max_decoder_seq_length, max_encoder_seq_length, target_features_dict = pkl.load(pf)
+
+encoder_model = load_model('encoder_model_600.h5')
+decoder_model = load_model('decoder_model_600.h5')
 
 def decode_response(test_input):
     # Getting the output states to pass into the decoder
