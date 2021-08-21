@@ -81,7 +81,8 @@ def initialize_chatbot():
 def reply_to(sentence, vocab, encoder, decoder, inv_vocab, pad_token, sos_token, eos_token, units, maxl, unicodeToAscii, normalizeString ):
 
     inps = []
-    for each word in sentence.split(" "):
+    words = sentence.split(" ")
+    for word in words:
         try:
         inps += vocab[word]
     except KeyError:
