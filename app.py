@@ -6,7 +6,7 @@ import numpy as np
 from keras.models import load_model
 import pickle as pkl
 import os
-from flask_ngrok import run_with_ngrok
+
 
 file_name = "pickled_vars_600_pkl"
 with open(file_name, 'rb') as pf:
@@ -82,7 +82,6 @@ chatbot = ChatBot()
 
 app = Flask(__name__)
 
-#run_with_ngrok(app)
 
 
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
