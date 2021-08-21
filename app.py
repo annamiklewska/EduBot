@@ -16,7 +16,8 @@ from keras.layers import Input, LSTM, Dense
 from keras.models import Model
 from keras.models import load_model
 import pickle as pkl
-'''
+
+print("begining")
 data_path = "human_text.txt"
 data_path2 = "robot_text.txt"
 # Defining lines as a list of each line
@@ -120,10 +121,10 @@ training_model.summary()
 #Training
 
 #print()
-training_model.fit([encoder_input_data, decoder_input_data], decoder_target_data, batch_size = batch_size, epochs = epochs, validation_split = 0.2)
+#training_model.fit([encoder_input_data, decoder_input_data], decoder_target_data, batch_size = batch_size, epochs = epochs, validation_split = 0.2)
 #training_model.save('training_model3.h5')
 
-'''
+
 ###############################################
 
 print("Getting pickled data")
@@ -251,4 +252,5 @@ def hello():
 
 
 if __name__ == "__main__":
+    print("run app")
     app.run()
