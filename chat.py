@@ -83,7 +83,8 @@ def reply_to(sentence, vocab, encoder, decoder, inv_vocab, pad_token, sos_token,
     try:
         inps = [vocab[word] for word in sentence.split(" ")]
     except KeyError:
-        return "I didn't get you, try again"
+        print("Missing word: " + word)
+        #return "I didn't get you, try again"
 
     inps = pad_sequences([inps], maxl, padding='post')
     inps = tf.convert_to_tensor(inps)
