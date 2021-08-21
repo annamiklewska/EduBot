@@ -126,12 +126,13 @@ training_model.summary()
 
 
 ###############################################
-
+'''
 print("Getting pickled data")
 file_name = "pickled_vars_tiny"
 with open(file_name, 'rb') as pf:
     encoder_inputs, decoder_inputs, num_decoder_tokens, target_features_dict, max_decoder_seq_length, max_encoder_seq_length, num_encoder_tokens, input_features_dict, decoder_lstm, decoder_dense, reverse_target_features_dict = pkl.load(pf)
 print(decoder_inputs.name)
+'''
 
 training_model = load_model('training_model_tiny.h5')
 encoder_inputs = training_model.input[0]
