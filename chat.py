@@ -80,11 +80,20 @@ def initialize_chatbot():
 """ Main reply function"""
 def reply_to(sentence, vocab, encoder, decoder, inv_vocab, pad_token, sos_token, eos_token, units, maxl, unicodeToAscii, normalizeString ):
 
+    inps = []
+    for each word in sentence.split(" "):
+        try:
+        inps += vocab[word]
+    except KeyError:
+        print("Missing word: " + word)
+    
+    '''
     try:
         inps = [vocab[word] for word in sentence.split(" ")]
     except KeyError:
-        print("Missing word: " + word)
-        #return "I didn't get you, try again"
+        return "I didn't get you, try again"
+    '''
+
 
     inps = pad_sequences([inps], maxl, padding='post')
     inps = tf.convert_to_tensor(inps)
