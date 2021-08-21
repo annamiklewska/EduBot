@@ -235,7 +235,7 @@ def hello():
                     recipient_id = x['sender']['id']
                     if x['message'].get('text'):
                         message = x['message']['text']
-                        Print("User message: " + message)
+                        print("User message: " + message)
                         message = chatbot.generate_response(message)
                         print("Reply: " + message)
                         print(bot.send_text_message(recipient_id, message))
