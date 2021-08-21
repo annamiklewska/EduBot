@@ -16,7 +16,7 @@ from keras.layers import Input, LSTM, Dense
 from keras.models import Model
 from keras.models import load_model
 import pickle as pkl
-
+'''
 print("begining")
 data_path = "human_text.txt"
 data_path2 = "robot_text.txt"
@@ -128,13 +128,13 @@ training_model.summary()
 ###############################################
 '''
 print("Getting pickled data")
-file_name = "pickled_vars_tiny"
+file_name = "pickled_vars_600_pkl"
 with open(file_name, 'rb') as pf:
     encoder_inputs, decoder_inputs, num_decoder_tokens, target_features_dict, max_decoder_seq_length, max_encoder_seq_length, num_encoder_tokens, input_features_dict, decoder_lstm, decoder_dense, reverse_target_features_dict = pkl.load(pf)
 print(decoder_inputs.name)
-'''
 
-training_model = load_model('training_model_tiny.h5')
+
+training_model = load_model('training_model_600_pkl.h5')
 encoder_inputs = training_model.input[0]
 encoder_outputs, state_h_enc, state_c_enc = training_model.layers[2].output
 encoder_states = [state_h_enc, state_c_enc]
