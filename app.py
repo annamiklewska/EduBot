@@ -15,7 +15,7 @@ from tensorflow import keras
 from keras.layers import Input, LSTM, Dense
 from keras.models import Model
 from keras.models import load_model
-
+'''
 data_path = "human_text.txt"
 data_path2 = "robot_text.txt"
 # Defining lines as a list of each line
@@ -122,10 +122,16 @@ training_model.summary()
 training_model.fit([encoder_input_data, decoder_input_data], decoder_target_data, batch_size = batch_size, epochs = epochs, validation_split = 0.2)
 #training_model.save('training_model3.h5')
 
-
+'''
 ###############################################
 
-#training_model = load_model('training_model3.h5')
+print("Getting pickled data")
+file_name = "pickled_vars_tiny"
+with open(file_name, 'rb') as pf:
+    encoder_inputs, decoder_inputs, num_decoder_tokens, target_features_dict, max_decoder_seq_length, max_encoder_seq_length, num_encoder_tokens, input_features_dict, decoder_lstm, decoder_dense, reverse_target_features_dict = pkl.load(pf)
+print(decoder_inputs.name)
+
+training_model = load_model('training_model_tiny.h5')
 encoder_inputs = training_model.input[0]
 encoder_outputs, state_h_enc, state_c_enc = training_model.layers[2].output
 encoder_states = [state_h_enc, state_c_enc]
